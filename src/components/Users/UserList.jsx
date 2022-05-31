@@ -2,12 +2,19 @@ import React from 'react';
 
 import UserItem from './UserItem';
 import './styles/UserList.css';
-
+import {List,ListItem,ListItemText}from '@material-ui/core';
 const UsersList = props => {
   if (props.items.length === 0) {
     return (
       <div className="center">
+      <List className='User-item'>
+      <ListItem>
+        <ListItemText>
+          
         <h2>No users found.</h2>
+        </ListItemText>
+      </ListItem>
+      </List>
       </div>
     );
   }

@@ -1,47 +1,33 @@
 import React from 'react';
-import {ListItem,ListItemAvatar,Avatar,List,ListItemText,Typography} from "@material-ui/core";
+
 import './styles/UserItem.css';
 import {Link} from 'react-router-dom';
+import Card from '@mui/material/Card';
+import CardHeader from '@mui/material/CardHeader';
+import Avatar from '@mui/material/Avatar';
+import CardContent  from '@mui/material/CardContent';
+import { Typography } from '@mui/material';
 const UserItem = (props) => {
   return (
-    <List className='user-item'>
-      <Link to={`/${props.id}/places`}>
-      <ListItem alignItems="flex-start">
-        <ListItemAvatar className="user-item__image">
-          <Avatar alt="Avatar-image" src={props.image} />
-        </ListItemAvatar>
-        <ListItemText
-        
+    <Card className='user-item'>
+      <Link to={`/${props.id}/places`} exact='true'>
+    
+       <CardHeader
+  avatar={<Avatar style={{width:'5rem',height:'5rem',margin:'0px',padding:'0px'}}alt="Avatar-image" className="user-item__image" src={props.image} />}
        
-          secondary={
-            <React.Fragment>
-              <Typography
-                sx={{ display: 'inline' }}
-
-                component="header"
-                variant="h5"
-                style={{color:'#fff'}}
-              >
-               {props.name}
-            </Typography>
-              <Typography
-                sx={{ display: 'inline' }}
-                style={{color:'#fff'}}
-                component="subHeader"
-                variant="h6"
-               
-              >
-                 {props.placeCount} {props.placeCount === 1 ? 'Place' : 'Places'}
-            </Typography>
-              
-              
-            </React.Fragment>
-          }
-        />
-      </ListItem>
+       />
+       <CardContent >
+       <Typography variant="h6" color="#fff"  className='Card-text'>
+          {props.name}
+        </Typography>
+       <Typography variant="body1" color="#fff" className='Card-text'>
+          {props.placeCount }{`${props.placeCount>1?' Places':' place'}`}
+        </Typography>
+       </CardContent>
+            
       </Link>
 
-  </List>
+  </Card>
   )
 }
 
