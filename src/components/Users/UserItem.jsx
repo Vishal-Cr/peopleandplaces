@@ -8,9 +8,11 @@ import Avatar from '@mui/material/Avatar';
 import CardContent  from '@mui/material/CardContent';
 import { Typography } from '@mui/material';
 const UserItem = (props) => {
+
   return (
+    
     <Card className='user-item'>
-      <Link to={`/${props.id}/places`} exact='true'>
+      <Link to={`/my/${props.id}/places`}>
     
        <CardHeader
   avatar={<Avatar style={{width:'5rem',height:'5rem',margin:'0px',padding:'0px'}}alt="Avatar-image" className="user-item__image" src={props.image} />}
@@ -25,9 +27,10 @@ const UserItem = (props) => {
         </Typography>
        </CardContent>
             
-      </Link>
 
+      </Link>
   </Card>
+  
   )
 }
 
