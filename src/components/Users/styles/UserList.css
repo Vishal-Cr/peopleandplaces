@@ -3,6 +3,7 @@
     margin: 0 auto;
     padding: 0;
     width: 90%;
+    height: 100vw;
     max-width: 50rem;
     display: flex;
     justify-content: center;

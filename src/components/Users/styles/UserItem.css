@@ -1,19 +1,19 @@
 .user-item {
     margin: 1rem;
     max-width: calc(85% - 2rem);
+    height: 6rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 4.0px 8.0px 8.0px hsl(0deg 0% 0% / 0.38);
 
+    border: 0.5px solid #ffdd40;
 }
 
 .user-item a {
 
     display: flex;
     align-items: center;
-    width: 100%;
-    height: 100%;
+
     text-decoration: none;
     padding: 1rem;
     background: #1f5156;
