@@ -8,7 +8,7 @@ import "./styles/PlaceList.css";
 const PlaceList = (props) => {
   if (props.items.length === 0) {
     return (
-      <Card className="user-item">
+      <Card className="place_user-item">
         <CardContent>
           <Typography variant="heading" color="#333" className="Card-text">
             <h1>No Places Found.Maybe Create One?</h1>

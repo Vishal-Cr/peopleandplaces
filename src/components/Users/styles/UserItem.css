@@ -1,12 +1,12 @@
 .user-item {
     margin: 1rem;
     max-width: calc(85% - 2rem);
-    height: 6rem;
+    height:6rem;
     display: flex;
     justify-content: center;
     align-items: center;
-
     border: 0.5px solid #ffdd40;
+    
 }
 
 .user-item a {

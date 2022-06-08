@@ -2,7 +2,7 @@ import "./App.css";
 import { Route, Switch, Redirect } from "react-router-dom";
 import Navbar from "./components/navbar/NavbarContainer.jsx";
 import NewPlace from "./components/pages/NewPlace";
-import Users from "./components/pages/Users";
+import Users from "./components/Users/Users";
 import UserPlaces from "./components/pages/UserPlaces";
 import UpdatePlace from "./components/pages/UpdatePlace";
 function App() {
