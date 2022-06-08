@@ -1,4 +1,5 @@
-import React,{useState} from 'react'
+import React,{useState} from 'react';
+import{Link}from 'react-router-dom';
 import Card from '@mui/material/Card';
 import './styles/PlaceItem.css';
 import Modal from '../Modal/Modal';
@@ -55,7 +56,9 @@ justifyContent:'space-evenly'}}>
         </div>
         <div className='btn_div'>
             <button type='text' className='card_btn map' onClick={openMapHandler}>View On Map</button>
-            <button type='text' className='card_btn edit' to={`/places/${props.id}`}>Edit</button>
+            <button type='text' className='card_btn edit'>
+                <Link  className='Link'to={`/places/${props.id}`}>Edit</Link>
+             </button>
             <button type='text' className='card_btn delete'>Delete</button>
         </div>
         </li>

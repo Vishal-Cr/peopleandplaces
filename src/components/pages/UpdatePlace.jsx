@@ -1,6 +1,11 @@
-import React from "react";
-import PlaceList from "../places/PlaceList";
-
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { Container } from "@material-ui/core";
+import Card from "@mui/material/Card";
+import InputDiv from "../Form-components/InputDiv";
+import { useForm } from "../hooks/use-form";
+import { VALIDATOR_REQUIRE, VALIDATOR_MINLENGTH } from "../util/validator";
+import "./styles/UpdatePlace.css";
 const DUMMY_PLACES = [
   {
     id: "p1",
@@ -30,8 +35,96 @@ const DUMMY_PLACES = [
   },
 ];
 
-const UserPlaces = () => {
-  return <PlaceList items={DUMMY_PLACES} />;
+const UpdatePlace = () => {
+  const placeId = useParams().placeId;
+  const [isLoading, setIsLoading] = useState(true);
+  const [formState, inputHandler, setFormData] = useForm(
+    {
+      title: {
+        value: "",
+        isValid: false,
+      },
+      description: {
+        value: "",
+        isValid: false,
+      },
+    },
+    false
+  );
+  const identifiedPlace = DUMMY_PLACES.find((p) => p.id === placeId);
+
+  useEffect(() => {
+    if (identifiedPlace) {
+      setFormData(
+        {
+          title: {
+            value: identifiedPlace.title,
+            isValid: false,
+          },
+          description: {
+            value: identifiedPlace.description,
+            isValid: false,
+          },
+        },
+        true
+      );
+    }
+    setIsLoading(false);
+  }, [setFormData, identifiedPlace]);
+  const placeUpdateSubmitHandler = (event) => {
+    event.preventDefault();
+    console.log(formState.inputs);
+  };
+
+  if (!identifiedPlace) {
+    return (
+      <div className="notFound_text">
+        <Card className="notFound_card">
+          <h2>Error:404, </h2>
+          <h2>Could not find Any place!</h2>
+        </Card>
+      </div>
+    );
+  }
+  if (isLoading) {
+    return (
+      <div className="center">
+        <h2>Loading...</h2>
+      </div>
+    );
+  }
+
+  return (
+    <Container>
+      <form className="place-form" onSubmit={placeUpdateSubmitHandler}>
+        <InputDiv
+          id="title"
+          element="input"
+          type="text"
+          label="Title"
+          validators={[VALIDATOR_REQUIRE()]}
+          errorText="Please enter a valid title."
+          onInput={inputHandler}
+          initialValue={formState.inputs.title.value}
+          initialValid={formState.inputs.title.isValid}
+        />
+        <InputDiv
+          id="description"
+          element="textarea"
+          label="Description"
+          validators={[VALIDATOR_MINLENGTH(5)]}
+          errorText="Please enter a valid description (min. 5 characters)."
+          onInput={inputHandler}
+          initialValue={formState.inputs.description.value}
+          initialValid={formState.inputs.description.isValid}
+        />
+        <button type="submit" disabled={!formState.isValid}>
+          UPDATE PLACE
+        </button>
+      </form>
+      )
+    </Container>
+  );
 };
 
-export default UserPlaces;
+export default UpdatePlace;

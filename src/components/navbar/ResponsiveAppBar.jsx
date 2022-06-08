@@ -32,7 +32,7 @@ function ResponsiveAppBar() {
             <li className="nav-item">
               <NavLink
                 exact
-                to="/my/u1/places"
+                to="/u1/places"
                 activeClassName="active"
                 className="nav-links"
                 onClick={click ? handleClick : null}

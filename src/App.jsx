@@ -1,55 +1,37 @@
 import "./App.css";
-import {Route,Switch,Redirect } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import Navbar from "./components/navbar/NavbarContainer.jsx";
 import NewPlace from "./components/pages/NewPlace";
-import Users from './components/pages/Users';
-import UserPlaces from './components/pages/UserPlaces';
+import Users from "./components/pages/Users";
+import UserPlaces from "./components/pages/UserPlaces";
+import UpdatePlace from "./components/pages/UpdatePlace";
 function App() {
-  
-  
-  
-  
-  
-  
   return (
-   
-   
-      <main className='App'>
-      <Navbar/>
-      
-      
+    <main className="App">
+      <Navbar />
+
       <Switch>
+        <Route path="/" exact>
+          <Users />
+        </Route>
 
-       <Route path='/' exact>
-        <Users/>
+        <Route path="/:userId/places" exact>
+          <UserPlaces />
+        </Route>
 
-        
-          </Route>
-       
-       <Route path='/my/:id/places'>
-     <UserPlaces/>
-        {/* <h1>My Places</h1> */}
-       </Route>
+        <Route path="/places/new" exact>
+          <NewPlace />
+        </Route>
 
-    
-    
-     <Route path="/places/new">
-      <NewPlace/>
-       {/* <h1>New pLace</h1> */}
-     </Route>
+        <Route path="/places/:placeId">
+          <UpdatePlace />
+        </Route>
 
-     <Route path="/auth">
-       <NewPlace/>
-       {/* <h1>Authentication</h1> */}
-     </Route>
-      
-       
+        <Route path="/auth">
+          <NewPlace />
+        </Route>
       </Switch>
-
-      </main>
-    
-
-    
+    </main>
   );
 }
 

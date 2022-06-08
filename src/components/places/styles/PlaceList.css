@@ -4,3 +4,6 @@
     align-items: center;
     flex-direction: column;
 }
+.user-item{
+    height:100vh;
+}

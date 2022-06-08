@@ -1,0 +1,15 @@
+.notFound_text{
+    height:100vh;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+  
+}
+.notFound_card{
+    color:red;
+    height:4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding:0.5rem;
+}

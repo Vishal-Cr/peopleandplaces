@@ -12,7 +12,7 @@ const UserItem = (props) => {
   return (
     
     <Card className='user-item'>
-      <Link to={`/my/${props.id}/places`}>
+      <Link to={`/${props.id}/places`}>
     
        <CardHeader
   avatar={<Avatar style={{width:'5rem',height:'5rem',margin:'0px',padding:'0px'}}alt="Avatar-image" className="user-item__image" src={props.image} />}
