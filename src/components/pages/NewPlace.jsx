@@ -1,4 +1,4 @@
-import React, { useCallback, useReducer } from "react";
+import React from "react";
 import "./styles/NewPlace.css";
 import InputDiv from "../Form-components/InputDiv";
 import { useForm } from "../hooks/use-form";

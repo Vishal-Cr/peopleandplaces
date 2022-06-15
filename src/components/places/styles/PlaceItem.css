@@ -50,6 +50,7 @@
     color: #fff;
     border-radius: 10px;
     transition: all 0.5s ease;
+    margin:0 0.5rem;
 }
 
 .card_btn.map {

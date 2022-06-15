@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import Card from "@mui/material/Card";
 import "./styles/PlaceItem.css";
 import Modal from "../Modal/Modal";
 import Map from "../Modal/Map";
 import CardContent from "@mui/material/CardContent";
-
+import { AuthContext } from "../context/AuthContext";
 const PlaceItem = (props) => {
+  const auth = useContext(AuthContext);
   const [showMap, setShowMap] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const openMapHandler = () => setShowMap(true);
@@ -48,12 +49,18 @@ const PlaceItem = (props) => {
         header="Are You Sure?"
         footer={
           <React.Fragment>
-            <button onClick={cancelDeleteHandler}>Cancel</button>
-            <button onClick={confirmDeleteHandler}>Delete</button>
+            <button onClick={cancelDeleteHandler} className="card_btn">
+              Cancel
+            </button>
+            <button onClick={confirmDeleteHandler} className="card_btn">
+              Delete
+            </button>
           </React.Fragment>
         }
       >
-        <p>Do You Want to Proceed? Please Note: it cannot be reversed.</p>
+        <p style={{ color: "#fff", fontSize: "18px" }}>
+          Do You Want to Proceed? Please Note: it cannot be reversed.
+        </p>
       </Modal>
       <Card
         className="card"
@@ -93,18 +100,22 @@ const PlaceItem = (props) => {
               >
                 View On Map
               </button>
-              <button type="text" className="card_btn edit">
-                <Link className="Link" to={`/places/${props.id}`}>
-                  Edit
-                </Link>
-              </button>
-              <button
-                type="text"
-                className="card_btn delete"
-                onClick={showDeleteWarningHandler}
-              >
-                Delete
-              </button>
+              {auth.isLoggedIn && (
+                <button type="text" className="card_btn edit">
+                  <Link className="Link" to={`/places/${props.id}`}>
+                    Edit
+                  </Link>
+                </button>
+              )}
+              {auth.isLoggedIn && (
+                <button
+                  type="text"
+                  className="card_btn delete"
+                  onClick={showDeleteWarningHandler}
+                >
+                  Delete
+                </button>
+              )}
             </div>
           </li>
         </CardContent>
