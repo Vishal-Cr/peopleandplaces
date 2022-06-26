@@ -6,16 +6,20 @@ import NewPlace from "./components/pages/NewPlace";
 import Users from "./components/Users/Users";
 import Auth from "./components/pages/Auth";
 import UserPlaces from "./components/pages/UserPlaces";
-import UpdatePlace from "./components/pages/UpdatePlace";
 import { AuthContext } from "./components/context/AuthContext";
+import UpdatePlace from "./components/pages/UpdatePlace";
+
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const login = useCallback(() => {
+  const [userId, setUserId] = useState(false);
+  const login = useCallback((uid) => {
     setIsLoggedIn(true);
-  });
-  const logout = useCallback(() => {
+    setUserId(uid);
+  }, []);
+  const logout = useCallback((uid) => {
     setIsLoggedIn(false);
-  });
+    setUserId(null);
+  }, []);
   let routes;
   if (isLoggedIn) {
     routes = (
@@ -23,11 +27,14 @@ function App() {
         <Route path="/" exact>
           <Users />
         </Route>
-        <Route path="/:userId/places" exact>
+        <Route path={`/:userId/places`} exact>
           <UserPlaces />
         </Route>
         <Route path="/places/new" exact>
           <NewPlace />
+        </Route>
+        <Route path="/places/:placeId" exact>
+          <UpdatePlace />
         </Route>
 
         <Redirect to="/" />
@@ -40,7 +47,7 @@ function App() {
           <Users />
         </Route>
         <Route path="/:userId/places" exact>
-          <UserPlaces />
+          <UserPlaces loginId={userId} />
         </Route>
         <Route path="/auth">
           <Auth />
@@ -51,7 +58,12 @@ function App() {
   }
   return (
     <AuthContext.Provider
-      value={{ isLoggedIn: isLoggedIn, login: login, logout: logout }}
+      value={{
+        isLoggedIn: isLoggedIn,
+        login: login,
+        logout: logout,
+        userId: userId,
+      }}
     >
       <main className="App">
         <Navbar />

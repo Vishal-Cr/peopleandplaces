@@ -2,10 +2,10 @@
     list-style: none;
     margin: 0 auto;
     padding: 0;
-    width: 90%;
+    width: auto;
     height: 100vw;
-    max-width: 50rem;
+    max-width: 20rem;
     display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+    flex-direction:column;
+   
 }

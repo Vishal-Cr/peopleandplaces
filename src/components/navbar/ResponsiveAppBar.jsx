@@ -35,7 +35,7 @@ function ResponsiveAppBar(props) {
               <li className="nav-item">
                 <NavLink
                   exact
-                  to="/u1/places"
+                  to={`/${auth.userId}/places`}
                   activeClassName="active"
                   className="nav-links"
                   onClick={click ? handleClick : null}

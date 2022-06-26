@@ -1,3 +1,5 @@
+//This Page is linked to UserPlaces comp in pages folder.
+
 import React from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -27,13 +29,14 @@ const PlaceList = (props) => {
         <PlaceItem
           key={place.id}
           id={place.id}
-          image={place.imageUrl}
+          image={place.image}
           title={place.title}
           location={place.location}
           description={place.description}
           address={place.address}
           creatorId={place.creator}
           coordinates={place.location}
+          onDelete={props.onDeletePlace}
         />
       ))}
     </ul>

@@ -8,6 +8,7 @@ import Avatar from "@mui/material/Avatar";
 import CardContent from "@mui/material/CardContent";
 import { Typography } from "@mui/material";
 const UserItem = (props) => {
+  
   return (
     <Card className="user-item">
       <Link to={`/${props.id}/places`}>
@@ -19,6 +20,7 @@ const UserItem = (props) => {
                 height: "5rem",
                 margin: "0px",
                 padding: "0px",
+                responsive: true,
               }}
               alt="Avatar-image"
               className="user-item__image"
@@ -30,9 +32,11 @@ const UserItem = (props) => {
           <Typography variant="h6" color="#fff" className="Card-text">
             {props.name}
           </Typography>
+
           <Typography variant="body1" color="#fff" className="Card-text">
             {props.placeCount}
-            {`${props.placeCount > 1 ? " Places" : " place"}`}
+
+            {`${props.placeCount > 1 ? " Places" : " Place"}`}
           </Typography>
         </CardContent>
       </Link>

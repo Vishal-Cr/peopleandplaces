@@ -6,24 +6,36 @@ import Modal from "../Modal/Modal";
 import Map from "../Modal/Map";
 import CardContent from "@mui/material/CardContent";
 import { AuthContext } from "../context/AuthContext";
+import { useHttpClient } from "../hooks/http-hook";
+import LoadingSpinner from "../UI-elements/LoadingSpinner";
+import ErrorModal from "../Modal/ErrorModal";
+
 const PlaceItem = (props) => {
   const auth = useContext(AuthContext);
   const [showMap, setShowMap] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const openMapHandler = () => setShowMap(true);
   const closeMapHandler = () => setShowMap(false);
+  const { isError, sendRequest, isLoading, clearError } = useHttpClient();
   const showDeleteWarningHandler = () => {
     setShowConfirmModal(true);
   };
   const cancelDeleteHandler = () => {
     setShowConfirmModal(false);
   };
-  const confirmDeleteHandler = () => {
+  const confirmDeleteHandler = async () => {
     setShowConfirmModal(false);
-    console.log("deleting...");
+    try {
+      await sendRequest(
+        `http://localhost:5000/api/places/${props.id}`,
+        "DELETE"
+      ); //Body or extra headers are not needed.
+      props.onDelete(props.id);
+    } catch (err) {}
   };
   return (
     <React.Fragment>
+      <ErrorModal error={isError} onClear={clearError} />
       <Modal
         show={showMap}
         onCancel={closeMapHandler}
@@ -62,6 +74,7 @@ const PlaceItem = (props) => {
           Do You Want to Proceed? Please Note: it cannot be reversed.
         </p>
       </Modal>
+      {isLoading && <LoadingSpinner asOverlay />}
       <Card
         className="card"
         sx={{
@@ -100,14 +113,14 @@ const PlaceItem = (props) => {
               >
                 View On Map
               </button>
-              {auth.isLoggedIn && (
+              {auth.userId == props.creatorId && (
                 <button type="text" className="card_btn edit">
                   <Link className="Link" to={`/places/${props.id}`}>
                     Edit
                   </Link>
                 </button>
               )}
-              {auth.isLoggedIn && (
+              {auth.userId == props.creatorId && (
                 <button
                   type="text"
                   className="card_btn delete"
