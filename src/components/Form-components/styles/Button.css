@@ -1,14 +1,15 @@
 .button {
     font: inherit;
     padding: 0.5rem 1.5rem;
-    border: 1px solid #ff0055;
+    border: 1px solid #ffdd40;
     border-radius: 4px;
-    background: #ff0055;
-    color: white;
+    background: #1f5156;
+    color: #ffdd40;
     cursor: pointer;
     margin-right: 1rem;
     text-decoration: none;
     display: inline-block;
+    transition:all 0.4s ease;
   }
   
   .button:focus {
@@ -17,8 +18,8 @@
   
   .button:hover,
   .button:active {
-    background: #ff4382;
-    border-color: #ff4382;
+    background: #ffdd40;
+    color: #1f5156;
   }
   
   .button--inverse {

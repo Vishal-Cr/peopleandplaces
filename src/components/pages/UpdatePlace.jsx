@@ -10,6 +10,7 @@ import "./styles/UpdatePlace.css";
 import { useHttpClient } from "../hooks/http-hook";
 import LoadingSpinner from "../UI-elements/LoadingSpinner";
 import { AuthContext } from "../context/AuthContext";
+import Button from "../Form-components/Button";
 const UpdatePlace = () => {
   const { isError, isLoading, sendRequest, clearError } = useHttpClient();
   const placeId = useParams()["placeId"];
@@ -35,7 +36,7 @@ const UpdatePlace = () => {
     const fetchPlace = async () => {
       try {
         const responseData = await sendRequest(
-          `http://localhost:5000/api/places/${placeId}`
+          `${import.meta.env.VITE_APP_BACKEND_URL}/places/${placeId}`
         );
         setLoadedPlace(responseData.places);
         setFormData(
@@ -60,7 +61,7 @@ const UpdatePlace = () => {
     event.preventDefault();
     try {
       await sendRequest(
-        `http://localhost:5000/api/places/${placeId}`,
+        `${import.meta.env.VITE_APP_BACKEND_URL}/places/${placeId}`,
         "PATCH",
         JSON.stringify({
           title: formState.inputs.title.value,
@@ -68,8 +69,10 @@ const UpdatePlace = () => {
         }),
         {
           "Content-Type": "application/json",
+          Authorization: "Bearer " + auth.token,
         }
       );
+
       history.push("/" + auth.userId + "/places");
     } catch (err) {}
   };
@@ -118,9 +121,9 @@ const UpdatePlace = () => {
             initialValue={formState.inputs.description.value}
             initialValid={formState.inputs.description.isValid}
           />
-          <button type="submit" disabled={!formState.isValid}>
+          <Button type="submit" disabled={!formState.isValid}>
             UPDATE PLACE
-          </button>
+          </Button>
         </form>
         )
       </Container>

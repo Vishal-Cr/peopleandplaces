@@ -36,27 +36,26 @@ const Auth = () => {
 
     if (!isLogin) {
       try {
+        const formData = new FormData(); // inbuilt Browser API
+        formData.append("email", formState.inputs.email.value);
+        formData.append("name", formState.inputs.name.value);
+        formData.append("password", formState.inputs.password.value);
+        formData.append("image", formState.inputs.image.value);
         const responseData = await sendRequest(
-          "http://localhost:5000/api/users/signup",
+          `${import.meta.env.VITE_APP_BACKEND_URL}/users/signup`,
 
           "POST",
-          JSON.stringify({
-            name: formState.inputs.name.value,
-            email: formState.inputs.email.value,
-            password: formState.inputs.password.value,
-          }),
-          {
-            "Content-Type": "application/json",
-          }
+          formData
+          //for formData fetch api automatically sets the right headers.
         );
         //the fetch api takes 404 and other error responses also as a valid error.
 
-        auth.login(responseData.user["id"]);
+        auth.login(responseData.user["id"], responseData.Authtoken);
       } catch (err) {}
     } else {
       try {
         const responseData = await sendRequest(
-          "http://localhost:5000/api/users/login",
+          `${import.meta.env.VITE_APP_BACKEND_URL}/users/login`,
 
           //the fetch api takes 404 and other error responses also as a valid error.
           "POST",
@@ -69,7 +68,7 @@ const Auth = () => {
           }
         );
 
-        auth.login(responseData.user["id"]);
+        auth.login(responseData.user["id"], responseData.Authtoken);
       } catch (err) {}
     }
   };
@@ -80,6 +79,7 @@ const Auth = () => {
         {
           ...formState.inputs, //loads the previous state
           name: undefined, //overrides just the name to be undefined
+          image: undefined,
         },
         formState.inputs.email.isValid && formState.inputs.password.isValid
       );
@@ -89,6 +89,10 @@ const Auth = () => {
           ...formState.inputs,
           name: {
             value: "",
+            isValid: false,
+          },
+          image: {
+            value: null,
             isValid: false,
           },
         },
@@ -118,9 +122,17 @@ const Auth = () => {
                 validators={[VALIDATOR_REQUIRE()]}
                 errorText="please enter your name"
                 onInput={inputHandler}
+                placeholder="Please Enter Your Nickname"
               />
             )}
-            {!isLogin && <ImageUplaod center id="image" />}
+            {!isLogin && (
+              <ImageUplaod
+                center
+                id="image"
+                onInput={inputHandler}
+                errorText="Please Provide an Image."
+              />
+            )}
             <InputDiv
               element="input"
               id="email"
@@ -129,6 +141,7 @@ const Auth = () => {
               validators={[VALIDATOR_EMAIL()]}
               errorText="Please Enter a Valid Email Address"
               onInput={inputHandler}
+              placeholder="Enter Email"
             />
             <InputDiv
               validators={[VALIDATOR_MINLENGTH(7)]}
@@ -138,6 +151,7 @@ const Auth = () => {
               label="password"
               errorText="Please enter password of at least 7 characters"
               onInput={inputHandler}
+              placeholder="Enter Password"
             />
             <button
               type="submit"
@@ -147,7 +161,11 @@ const Auth = () => {
               {isLogin ? "LOGIN" : "SIGNUP"}
             </button>
           </form>
-          {isLogin && "Not a member?"}
+          <span
+            style={{ color: "orange", display: "block", margin: "0.5rem 0" }}
+          >
+            {isLogin && "Not a member?"}
+          </span>
           <button
             onClick={signupClickHandler}
             // disabled={!formState.isValid}

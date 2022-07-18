@@ -1,5 +1,4 @@
 //This Page is linked to UserPlaces comp in pages folder.
-
 import React from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -7,18 +6,25 @@ import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
 import PlaceItem from "./PlaceItem";
 import "./styles/PlaceList.css";
+import Button from "../Form-components/Button";
+
 const PlaceList = (props) => {
   if (props.items.length === 0) {
     return (
-      <Card className="place_user-item">
+      <Card className="place_user-item" sx={{ height: "100vh" }}>
         <CardContent>
           <Typography variant="heading" color="#333" className="Card-text">
             <h1>No Places Found.Maybe Create One?</h1>
           </Typography>
 
-          <button>
-            <Link to="/places/new">Share Place</Link>
-          </button>
+          <Button>
+            <Link
+              to="/places/new"
+              style={{ color: "#fff", textDecoration: "none" }}
+            >
+              Share Place
+            </Link>
+          </Button>
         </CardContent>
       </Card>
     );

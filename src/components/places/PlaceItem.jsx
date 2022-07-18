@@ -27,8 +27,12 @@ const PlaceItem = (props) => {
     setShowConfirmModal(false);
     try {
       await sendRequest(
-        `http://localhost:5000/api/places/${props.id}`,
-        "DELETE"
+        `${import.meta.env.VITE_APP_BACKEND_URL}/places/${props.id}`,
+        "DELETE",
+        null,
+        {
+          Authorization: "Bearer " + auth.token,
+        }
       ); //Body or extra headers are not needed.
       props.onDelete(props.id);
     } catch (err) {}
@@ -98,11 +102,23 @@ const PlaceItem = (props) => {
         >
           <li className="place-item">
             <div className="card_image_container">
-              <img src={props.image} className="card_image" alt={props.title} />
+              <img
+                src={`${import.meta.env.VITE_APP_BASE_URL}/${props.image}`}
+                className="card_image"
+                alt={props.title}
+              />
             </div>
             <div className="card_info">
-              <h2>{props.title}</h2>
-              <h3>{props.address}</h3>
+              <h3
+                style={{
+                  color: "orange",
+                  textDecoration: "underline overline",
+                }}
+              >
+                {props.title}
+              </h3>
+
+              <h5>{props.address}</h5>
               <p>{props.description}</p>
             </div>
             <div className="btn_div">

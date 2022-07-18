@@ -1,27 +1,21 @@
+import React, { Suspense } from "react";
 import "./App.css";
-import React, { useState, useCallback } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import Navbar from "./components/navbar/NavbarContainer.jsx";
-import NewPlace from "./components/pages/NewPlace";
-import Users from "./components/Users/Users";
-import Auth from "./components/pages/Auth";
-import UserPlaces from "./components/pages/UserPlaces";
 import { AuthContext } from "./components/context/AuthContext";
-import UpdatePlace from "./components/pages/UpdatePlace";
+import useAuth from "./components/hooks/use-Auth";
+import LoadingSpinner from "./components/UI-elements/LoadingSpinner";
+const Users = React.lazy(() => import("./components/Users/Users"));
+const Auth = React.lazy(() => import("./components/pages/Auth"));
+const NewPlace = React.lazy(() => import("./components/pages/NewPlace"));
+const UserPlaces = React.lazy(() => import("./components/pages/UserPlaces"));
+const UpdatePlace = React.lazy(() => import("./components/pages/UpdatePlace"));
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userId, setUserId] = useState(false);
-  const login = useCallback((uid) => {
-    setIsLoggedIn(true);
-    setUserId(uid);
-  }, []);
-  const logout = useCallback((uid) => {
-    setIsLoggedIn(false);
-    setUserId(null);
-  }, []);
+  const { token, login, logout, userId } = useAuth(); //custom hook to login, logout and fetch userData.
+
   let routes;
-  if (isLoggedIn) {
+  if (token) {
     routes = (
       <Switch>
         <Route path="/" exact>
@@ -59,7 +53,8 @@ function App() {
   return (
     <AuthContext.Provider
       value={{
-        isLoggedIn: isLoggedIn,
+        isLoggedIn: Boolean(token),
+        token: token,
         login: login,
         logout: logout,
         userId: userId,
@@ -67,8 +62,15 @@ function App() {
     >
       <main className="App">
         <Navbar />
-
-        {routes}
+        <Suspense
+          fallback={
+            <div className="center">
+              <LoadingSpinner />
+            </div>
+          }
+        >
+          {routes}
+        </Suspense>
       </main>
     </AuthContext.Provider>
   );

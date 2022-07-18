@@ -16,7 +16,7 @@ const UserPlaces = (props) => {
     const fetchPlaces = async () => {
       try {
         const responseData = await sendRequest(
-          `http://localhost:5000/api/places/user/${fetchedUserId}`
+          `${import.meta.env.VITE_APP_BACKEND_URL}/places/user/${fetchedUserId}`
         );
         setLoadedPlaces(responseData.places);
       } catch (err) {}

@@ -7,12 +7,13 @@
     background: transparent;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
     border-radius: 8px;
+    
 }
 
 .modal__header {
-
+width:inherit;
     padding: 1rem 0.5rem;
-    background: #1f5156;
+    background: red;
     color: #ffdd40;
 }
 
@@ -24,6 +25,10 @@
     padding: 1rem 0.5rem;
     width: 50vw;
     height: 65vh;
+    text-align: center;
+    color:red;
+    font-size: max(2vw, 1.5em, 1.5rem);
+    position: relative;
 
 }
 

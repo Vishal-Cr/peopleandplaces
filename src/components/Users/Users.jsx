@@ -8,9 +8,10 @@ const Users = () => {
   const { isLoading, isError, clearError, sendRequest } = useHttpClient();
   useEffect(() => {
     const getRequest = async () => {
+      console.log(`${import.meta.env.VITE_APP_BACKEND_URL}/users`);
       try {
         const responseData = await sendRequest(
-          "http://localhost:5000/api/users"
+          `${import.meta.env.VITE_APP_BACKEND_URL}/users`
         );
 
         setLoadedUsers(responseData.users);

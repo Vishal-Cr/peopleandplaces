@@ -1,18 +1,18 @@
 .auth_container{
-    height:100vh;
+  
     display: flex;
     justify-content: center;
     margin-top: 3rem;
-  
+    
     
 }
 .auth_form_container{
      border:1px solid #ffdd40;
-    
-    height:70%;
+    color:#fff;
     padding:1rem 0;
     width:60%;
-    display: flex;
+    margin-bottom:20vh;
+    overflow: hidden;
     align-items: center;
     justify-content:center;
     flex-direction: column;
@@ -23,12 +23,13 @@
     
 }
 .auth_form{
-    color:#1f5156;
+    
     width:50vw;
     margin:0 auto;
     line-height: 1.5;
     letter-spacing: 2.5px;   
     color:#fff;
+    
 }
 .btn{
     border:none;
