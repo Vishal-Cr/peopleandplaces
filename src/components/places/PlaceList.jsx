@@ -13,14 +13,22 @@ const PlaceList = (props) => {
     return (
       <Card className="place_user-item" sx={{ height: "100vh" }}>
         <CardContent>
-          <Typography variant="heading" color="#333" className="Card-text">
-            <h1>No Places Found.Maybe Create One?</h1>
+          <Typography variant="heading" className="Card-text">
+            <h1 style={{ color: "darkOrange" }}>
+              No Places Found.Maybe Create One?
+            </h1>
           </Typography>
 
           <Button>
             <Link
               to="/places/new"
-              style={{ color: "#fff", textDecoration: "none" }}
+              style={{
+                color: "#fff",
+                "&:hover": {
+                  color: "#1F5156",
+                },
+                textDecoration: "none",
+              }}
             >
               Share Place
             </Link>
